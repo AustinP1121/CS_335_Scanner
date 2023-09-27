@@ -3,6 +3,5 @@
 int main()
 {
 	Scanner a;
-	a.ReadFile();
 }
 

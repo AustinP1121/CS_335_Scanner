@@ -1,2 +1,4 @@
 ﻿  Driver.cpp
+C:\Users\austi\source\repos\CS_335_Scanner\Scanner\Scanner\Scanner.h(147,34): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\austi\source\repos\CS_335_Scanner\Scanner\Scanner\Scanner.h(177,34): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
   Scanner.vcxproj -> C:\Users\austi\source\repos\CS_335_Scanner\Scanner\x64\Debug\Scanner.exe
