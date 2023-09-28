@@ -80,19 +80,26 @@ inline vector<char> Scanner::ReadFile()
 
 inline void Scanner::ScanProgram(vector<char> _buffer)
 {
-	char _currentChar;
-	char _nextChar;
+	char _currentChar = ' ';
+	char _nextChar = ' ';
 
-	for (int _currentIndex = 0; _currentIndex < _buffer.size(); _currentIndex++)
+	int _nextIndex = 0;
+
+	for (int _currentIndex = 0; _currentIndex < _buffer.size()-1; _currentIndex++)
 	{
 		_currentChar = _buffer[_currentIndex];
-		_nextChar = _buffer[_currentIndex+=1];
+
+		if (++_nextIndex < _buffer.size()-1)
+		{
+			_nextChar = _buffer[++_nextIndex];
+		}
 
 		//check if the current char is an operator
+		//output if so
 		CheckOp(_currentChar);
 
 		//check if the current char is an assignment operator and assure it's used correctly
-		if (CheckAssignment(_currentChar, _nextChar) != false)
+		if (CheckAssignment(_currentChar, _nextChar) == false)
 		{
 			cout << "\n*** Error: the character ':' does not follow the assignment token form (:=) ***\n";
 			break;
@@ -147,7 +154,7 @@ inline bool Scanner::CheckAssignment(char _currentChar, char _nextChar)
 		}
 	}
 
-	return false;
+	return true;
 }
 
 inline int Scanner::PostLineCommentIndex(vector<char> _buffer, int _currentIndex)
