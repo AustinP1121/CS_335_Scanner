@@ -5,6 +5,7 @@
 #include <stack>
 #include <vector>
 #include <fstream>
+#include <string>
 
 using namespace std;
 
@@ -26,11 +27,20 @@ public:
 	//check if current token is an assignment
 	bool CheckAssignment(char, char);
 
+	//check if the current token is a digit (0 - 9),
+	//return error if next char is not a digit
+	bool CheckDigit(char);
+
+	//check if the current token is part of an ID
+	bool CheckID(char);
+
 	//get the index where the end of the line comment is
 	int PostLineCommentIndex(vector<char>, int);
 
 	//get the index where the end of the block comment is
 	int PostBlockCommentIndex(vector<char>, int);
+	
+
 
 private:
 	//buffer used to store file data
@@ -80,7 +90,8 @@ inline void Scanner::ScanProgram(vector<char> _buffer)
 {
 	char _currentChar = ' ';
 	char _nextChar = ' ';
-	
+	string _command = "";
+
 	int _nextIndex = 0;
 	int _nextIndexCheck = 0;
 
@@ -125,7 +136,24 @@ inline void Scanner::ScanProgram(vector<char> _buffer)
 			cout << _currentChar << endl;
 		}
 
+		else if(_currentChar == '.')
+		{
+			if (CheckDigit(_nextChar) == false)
+			{
+				cout << "\n\n*** ERROR: Decimal point without sequence of numbers ***";
+				break;
+			}
+			cout << _currentChar;
+		}
+		else if (CheckDigit(_currentChar))
+		{
+			cout << _currentChar;
+		}
 
+		else if (CheckID(_currentChar))
+		{
+			cout << _currentChar;
+		}
 	}
 }
 
@@ -137,7 +165,7 @@ inline void Scanner::CheckOp(char _currentChar)
 		|| _currentChar == '-'
 		|| _currentChar == '*')
 	{
-		cout << _currentChar << "\n";
+		cout << "\n" << _currentChar << "\n";
 	}
 }
 
@@ -156,6 +184,34 @@ inline bool Scanner::CheckAssignment(char _currentChar, char _nextChar)
 	}
 
 	return true;
+}
+
+inline bool Scanner::CheckDigit(char _currentChar)
+{
+	for (int i = 0; i < 10; i++)
+	{	
+		char _value = char(i) + 48;
+		if (_currentChar == _value)
+		{
+			return true;
+		}
+	}
+
+	return false;
+}
+
+inline bool Scanner::CheckID(char _currentChar)
+{
+	for (int i = 0; i < 26; i++)
+	{
+		char _upperCaseVal = char(i) + 65;
+		char _lowerCaseVal = char(i) + 97;
+		if (_currentChar == _upperCaseVal 
+			|| _currentChar == _lowerCaseVal)
+		{
+			return true;
+		}
+	}
 }
 
 inline int Scanner::PostLineCommentIndex(vector<char> _buffer, int _currentIndex)
