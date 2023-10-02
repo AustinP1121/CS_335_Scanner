@@ -32,8 +32,6 @@ public:
 	//get the index where the end of the block comment is
 	int PostBlockCommentIndex(vector<char>, int);
 
-	//checkss for the end of comment symbols / or */
-	bool CheckForEndOfComment(char);
 private:
 	//buffer used to store file data
 	vector<char> _buffer;
@@ -82,14 +80,17 @@ inline void Scanner::ScanProgram(vector<char> _buffer)
 {
 	char _currentChar = ' ';
 	char _nextChar = ' ';
-
+	
 	int _nextIndex = 0;
+	int _nextIndexCheck = 0;
 
 	for (int _currentIndex = 0; _currentIndex < _buffer.size()-1; _currentIndex++)
 	{
 		_currentChar = _buffer[_currentIndex];
+		
+		_nextIndexCheck = _nextIndex;
 
-		if (++_nextIndex < _buffer.size()-1)
+		if (++_nextIndexCheck < _buffer.size() - 1)
 		{
 			_nextChar = _buffer[++_nextIndex];
 		}
@@ -201,6 +202,7 @@ inline int Scanner::PostBlockCommentIndex(vector<char> _buffer, int _currentInde
 
 	for (int i = _currentIndex; i < _bufferSize; i++)
 	{
+		int _nextIndex = i;
 		//end of block comment found
 		if(_currentChar == '*' && _nextChar == '/')
 		{
@@ -214,10 +216,10 @@ inline int Scanner::PostBlockCommentIndex(vector<char> _buffer, int _currentInde
 		else
 		{
 			//error if the current index exceeds the available number of elements in buffer
-			if (++i > _bufferSize - 1)
+			if (++_nextIndex > _bufferSize - 1)
 			{
 				cout << "\n*** ERROR: block comment incomplete! ***\n";
-				return _bufferSize-1;
+				return _bufferSize - 1;
 			}
 			else
 			{
