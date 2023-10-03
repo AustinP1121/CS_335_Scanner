@@ -90,12 +90,12 @@ inline void Scanner::ScanProgram(vector<char> _buffer)
 {
 	char _currentChar = ' ';
 	char _nextChar = ' ';
-	string _command = "";
+	string _commandOrID = "";
 
 	int _nextIndex = 0;
 	int _nextIndexCheck = 0;
 
-	for (int _currentIndex = 0; _currentIndex < _buffer.size()-1; _currentIndex++)
+	for (int _currentIndex = 0; _currentIndex < _buffer.size(); _currentIndex++)
 	{
 		_currentChar = _buffer[_currentIndex];
 		
@@ -145,15 +145,40 @@ inline void Scanner::ScanProgram(vector<char> _buffer)
 			}
 			cout << _currentChar;
 		}
+		
+		else if (CheckID(_currentChar))
+		{
+			if (_currentChar == 'r' || _currentChar == 'e' || _currentChar == 'a' || _currentChar == 'd')
+			{
+				_commandOrID += _currentChar;
+			}
+			else if (_currentChar == 'w' || _currentChar == 'r' || _currentChar == 'i' || _currentChar == 't' || _currentChar == 'e')
+			{
+				_commandOrID += _currentChar;
+			}
+			else
+			{
+				cout << _currentChar;
+			}
+		}
+		
 		else if (CheckDigit(_currentChar))
 		{
 			cout << _currentChar;
 		}
 
-		else if (CheckID(_currentChar))
+		else if (_currentChar == '\n')
 		{
-			cout << _currentChar;
+			cout << endl;
 		}
+
+		if (_commandOrID == "read" || _commandOrID == "write")
+		{
+			cout << "\n" + _commandOrID << endl;
+			_commandOrID = "";
+		}
+
+		
 	}
 }
 
@@ -212,6 +237,8 @@ inline bool Scanner::CheckID(char _currentChar)
 			return true;
 		}
 	}
+
+	return false;
 }
 
 inline int Scanner::PostLineCommentIndex(vector<char> _buffer, int _currentIndex)
@@ -263,7 +290,7 @@ inline int Scanner::PostBlockCommentIndex(vector<char> _buffer, int _currentInde
 		if(_currentChar == '*' && _nextChar == '/')
 		{
 			//jump to the code
-			_currentIndex = 2+i;
+ 			_currentIndex = i;
 
 			return _currentIndex;
 		}

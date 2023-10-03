@@ -1,5 +1,4 @@
 ﻿  Driver.cpp
-C:\Users\austi\source\repos\335Proj1\CS_335_Scanner\Scanner\Scanner\Scanner.h(223,34): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\austi\source\repos\335Proj1\CS_335_Scanner\Scanner\Scanner\Scanner.h(253,34): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\austi\source\repos\335Proj1\CS_335_Scanner\Scanner\Scanner\Scanner.h(215): warning C4715: 'Scanner::CheckID': not all control paths return a value
-  Scanner.vcxproj -> C:\Users\austi\source\repos\335Proj1\CS_335_Scanner\Scanner\x64\Debug\Scanner.exe
+C:\Users\Austin\source\repos\CS_335_Project_1\CS_335_Scanner\Scanner\Scanner\Scanner.h(250,34): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Austin\source\repos\CS_335_Project_1\CS_335_Scanner\Scanner\Scanner\Scanner.h(280,34): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  Scanner.vcxproj -> C:\Users\Austin\source\repos\CS_335_Project_1\CS_335_Scanner\Scanner\x64\Debug\Scanner.exe
